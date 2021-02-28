@@ -8,7 +8,13 @@ import random
 
 true = True
 false = False
-cr_flag = False
+
+app = Flask(__name__)
+# app = Flask(__name__, root_path='/api')
+# app.config["APPLICATION_ROOT"] = "/api"
+# app.config['SECRET_KEY'] = 'the quick brown fox jumps over the lazy   dog'
+# app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 try:
 	from flask_cors import CORS, cross_origin
@@ -17,19 +23,8 @@ except ImportError:
 except Exception:
 	print('Unknown error')
 else:
-	cr_flag = True
-
-app = Flask(__name__)
-
-# app = Flask(__name__, root_path='/api')
-# app.config["APPLICATION_ROOT"] = "/api"
-# app.config['SECRET_KEY'] = 'the quick brown fox jumps over the lazy   dog'
-app.config['CORS_HEADERS'] = 'Content-Type'
-
-
-if cr_flag:
 	# https://flask-cors.readthedocs.io/en/latest/
-	# CORS(app, support_credentials=True)
+	CORS(app, support_credentials=True)
 	# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 	pass
 
