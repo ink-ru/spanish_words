@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import os
 import yaml
 from flask import Flask # send_from_directory
@@ -30,11 +29,13 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 if cr_flag:
 	# https://flask-cors.readthedocs.io/en/latest/
-	CORS(app, support_credentials=True)
+	# CORS(app, support_credentials=True)
 	# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+	pass
 
 api = Api(app)
 
+'''
 @app.after_request
 def add_headers(response):
     response.headers.add('Content-Type', 'application/json')
@@ -43,11 +44,13 @@ def add_headers(response):
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Expose-Headers', 'Content-Type,Content-Length,Authorization,X-Pagination')
     return response
+'''
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 
 @app.route('/')
+# @cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def index():
 	return 'REST SERVER!'
 
