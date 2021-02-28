@@ -2,7 +2,7 @@
 
 import os
 import yaml
-from flask import Flask
+from flask import Flask # send_from_directory
 from flask_restful import Resource, Api, reqparse
 from flask_jsonpify import jsonify
 import random
@@ -11,26 +11,38 @@ true = True
 false = False
 cr_flag = False
 
-'''
 try:
-	from flask_cors import CORS
+	from flask_cors import CORS, cross_origin
 except ImportError:
 	print('CORS error')
 except Exception:
 	print('Unknown error')
 else:
 	cr_flag = True
-'''
+
+app = Flask(__name__)
 
 # app = Flask(__name__, root_path='/api')
 # app.config["APPLICATION_ROOT"] = "/api"
-app = Flask(__name__)
+# app.config['SECRET_KEY'] = 'the quick brown fox jumps over the lazy   dog'
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 if cr_flag:
 	# https://flask-cors.readthedocs.io/en/latest/
-	cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+	CORS(app, support_credentials=True)
+	# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 api = Api(app)
+
+@app.after_request
+def add_headers(response):
+    response.headers.add('Content-Type', 'application/json')
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Expose-Headers', 'Content-Type,Content-Length,Authorization,X-Pagination')
+    return response
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
