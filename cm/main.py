@@ -4,14 +4,19 @@ import os
 import yaml
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
-from flask_cors import CORS
 from flask_jsonpify import jsonify
 import random
+
+try:
+	from flask_cors import CORS
+except ImportError:
+	print('CORS error')
 
 # app = Flask(__name__, root_path='/api')
 # app.config["APPLICATION_ROOT"] = "/api"
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api = Api(app)
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
