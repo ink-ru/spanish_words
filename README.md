@@ -1,4 +1,6 @@
 # spanish_words
- Russian and Spanish pairs
+ Russian and Spanish pairs API for Heroku app
 
- https://github.com/smitthakkar96/flask-restful-boilerplate
+
+#See also:
+* [flask restful boilerplate](https://github.com/smitthakkar96/flask-restful-boilerplate)
